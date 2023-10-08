@@ -10,6 +10,7 @@ services:
       POSTGRES_DB: test_db
     ports:
       - "5437:5437"
+    command: -p 5437
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4

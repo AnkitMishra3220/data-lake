@@ -25,5 +25,16 @@ In this project we will build data-lake from scratch.
 
 ### Start Using :
 
-![](resources/pg_admin_3.png) 
+![](resources/pg_admin_3.png)
+
+## **Database Schema**
+
+![](resources/database_schema.png)
+
+## Data model that supports the following analysis:
+
+- What places contributed the most/least to product sales?
+- Which seller sold the most/least products?
+- Best and worst performing products.
+- Date for everything.
 
