@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession, DataFrame
 
 
 def create_spark_session() -> SparkSession:
-    conf = SparkConf().set("spark.driver.memory", "8g")
+    conf = SparkConf().set("spark.driver.memory", "1g")
     spark_session = SparkSession \
         .builder \
         .master("local[2]") \
@@ -17,30 +17,30 @@ def create_spark_session() -> SparkSession:
 
 def write_data(data_df: DataFrame, table: str, connection_str: str, username: str, password: str):
     properties = {"user": username, "password": password, "driver": "org.postgresql.Driver"}
-    data_df.write.mode("append")\
+    data_df.write.mode("append") \
         .jdbc(url=connection_str, table=table, properties=properties)
 
 
 if __name__ == '__main__':
-
     spark = create_spark_session()
 
     target_connection_str = "jdbc:postgresql://localhost:5437/e_commerce"
     target_username = "root"
     target_password = "root"
-    #
-    # schema = StructType([
-    #     StructField("customer_id", StringType(), True),
-    #     StructField("customer_unique_id", StringType(), True),
-    #     StructField("customer_zip_code_prefix", StringType(), True),
-    #     StructField("customer_city", StringType(), True),
-    #     StructField("customer_state", StringType(), True),
-    #     ])
 
-    customers_df = spark.read\
-                        .option("inferSchema", "true")\
-                        .option("header", True)\
-                        .csv('../../resources/database_load/customers.csv')
+    ######## To Do ########
+    ###### Create customer table with this schema ######
+
+    # StructField(customer_id, BinaryType, false),
+    # StructField(customer_unique_id, BinaryType, true),
+    # StructField(customer_zip_code_prefix, IntegerType, true)
+    # StructField(customer_city, StringType, true),
+    # StructField(customer_state, StringType, true)))
+
+    customers_df = spark.read \
+        .option("inferSchema", "true") \
+        .option("header", True) \
+        .csv('../../resources/database_load/customers.csv')
 
     write_data(
         data_df=customers_df,
@@ -49,6 +49,27 @@ if __name__ == '__main__':
         username=target_username,
         password=target_password
     )
+
+
+    # ********* To Do *************
+    # Create and load below tables in Postgres
+    # geolocation
+    # order_items
+    # order_payments
+    # order_reviews
+    # orders
+    # product_category_name_translation
+    # products
+    # sellers
+
+    # To Do
+    # Optimize the code
+
+
+
+
+
+
 
 
 # import psycopg2

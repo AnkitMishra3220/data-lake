@@ -25,6 +25,8 @@ In this project we will build data-lake from scratch.
 
 ### Start Using :
 
+- Create Database with query "CREATE DATABASE e_commerce"
+
 ![](resources/pg_admin_3.png)
 
 ## **Database Schema**
