@@ -1,5 +1,6 @@
 from pyspark import SparkConf
 from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, BooleanType, BinaryType
 # from pyspark.sql.types import LongType, StringType, StructField, StructType, BooleanType, ArrayType, IntegerType, TimestampType
 
 
@@ -23,24 +24,23 @@ def write_data(data_df: DataFrame, table: str, connection_str: str, username: st
 
 if __name__ == '__main__':
     spark = create_spark_session()
-
     target_connection_str = "jdbc:postgresql://localhost:5437/e_commerce"
     target_username = "root"
     target_password = "root"
 
-    ######## To Do ########
-    ###### Create customer table with this schema ######
+    customer_schema = StructType()\
+        .add("customer_id", StringType(), True)\
+        .add("customer_unique_id", StringType(), False)\
+        .add("customer_zip_code_prefix", IntegerType(), False)\
+        .add("customer_city", StringType(), False)\
+        .add("customer_state", StringType(), False)
 
-    # StructField(customer_id, BinaryType, false),
-    # StructField(customer_unique_id, BinaryType, true),
-    # StructField(customer_zip_code_prefix, IntegerType, true)
-    # StructField(customer_city, StringType, true),
-    # StructField(customer_state, StringType, true)))
-
-    customers_df = spark.read \
-        .option("inferSchema", "true") \
-        .option("header", True) \
+    customers_df = spark.read\
+        .schema(customer_schema).option("header", True)\
         .csv('../../resources/database_load/customers.csv')
+    customers_df.printSchema()
+
+    customers_df.show()
 
     write_data(
         data_df=customers_df,
