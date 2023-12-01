@@ -40,3 +40,23 @@ In this project we will build data-lake from scratch.
 - Best and worst performing products.
 - Date for everything.
 
+## Steps to start Airflow 
+
+- Start the Docker Desktop
+- Go to project root location 
+- Build Docker Image  -> ./mwaa-local-env build-image
+- Run Apache Airflow -> ./mwaa-local-env start 
+- Access the UI 
+  Open the Airflow UI: http://localhost:8080/
+  Username: admin 
+  Password: test
+  
+![](resources/airflow_login.png)
+
+
+![](resources/airflow_main.png)
+  
+
+
+
+
