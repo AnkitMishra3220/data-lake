@@ -33,6 +33,10 @@ In this project we will build data-lake from scratch.
 
 ![](resources/database_schema.png)
 
+## ** Alter Table Schema to add ingestion_timestamp column 
+
+ALTER TABLE customers ADD COLUMN ingestion_timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
 ## Data model that supports the following analysis:
 
 - What places contributed the most/least to product sales?
